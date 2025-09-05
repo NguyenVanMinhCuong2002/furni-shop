@@ -105,6 +105,10 @@ const updateUser = async (req: Request, res: Response) =>{
     }
 }
 
+const forgotPassword = async (req: Request, res: Response)=>{
+
+}
+
 
 
 export {
@@ -114,5 +118,6 @@ export {
     login,
     profileUser,
     logout,
-    updateUser
+    updateUser,
+    forgotPassword
 }

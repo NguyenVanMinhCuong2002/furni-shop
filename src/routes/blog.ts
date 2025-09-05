@@ -1,11 +1,10 @@
 import { Router, Response, Request } from "express"
+import { getBlogs } from "../controllers/blogsControllers";
 
 const blogRouter = Router();
 
 const path = "/blog/";
 
-blogRouter.get(path, (req: Request, res: Response) => {
-    return res.render("pages/blog", { layout: "layouts/main"})
-});
+blogRouter.get(path, getBlogs);
 
 export default blogRouter;

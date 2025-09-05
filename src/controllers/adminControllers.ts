@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { getListUserHanle, deleteUserHandle, createUserHandle, getUserHandle, updateUserHandle } from "../services/usersService";
 import { createProductHandle, deleteProductHandle, getListOrdersHandle, getListProductHanle, getProductByOrderIdHandle, getProductHandle, setOrderStatusHandle, updateProductHandle } from "../services/productServiece";
 import { order } from "./productsControllers";
+import { createArticleHandle, deleteArticleHandle, getListArticleHanle } from "../services/blogsService";
 
 
 const layout = "layouts/admin"
@@ -100,6 +101,7 @@ const adminProductPage = async (req: Request, res: Response) => {
 
 const adminCreateProduct = async (req: Request, res: Response) => {
     try {
+        
         const userSession = req.session.user;
         const {name,  price, description} = req.body
         const filename = req.file?.filename;
@@ -126,9 +128,10 @@ const adminProductUpdateForm = async (req: Request, res: Response) =>{
 
 const adminUpdateProduct = async (req: Request, res: Response) =>{
     try{
+        const userSession = req.session.user;
         const {Id, name,  price, description} = req.body
         const filename = req.file?.filename;
-        const create_by = 24
+        const create_by = Number(userSession?.id)
         const product = await updateProductHandle(Id ,name, description, price, create_by, String(filename))
         
         return res.redirect("products")
@@ -154,19 +157,19 @@ const adminDeleteProduct = async (req: Request, res: Response) =>{
     return res.redirect("products");
 }
 
+
+// Order Controller
 const adminOrderPage = async (req: Request, res: Response) =>{
     
     const listOrders = await getListOrdersHandle()
-    console.log(listOrders)
 
     return res.render(path + "order", { layout: layout, orders:listOrders})
 }
 
 const adminOrderDetail = async (req: Request, res: Response) =>{
+
     const {Id} = req.params;
     const products = await getProductByOrderIdHandle(Number(Id))
-    console.log(products)
-    
 
     return res.render(path + "order_details", { layout: layout, products:products})
 }
@@ -174,7 +177,7 @@ const adminOrderDetail = async (req: Request, res: Response) =>{
 const adminSetStatus = async (req: Request, res: Response) =>{
   try {
 
-         let {Id, status} = req.body;
+         let {Id, status} = req.body
 
          if(status == "open"){
             status = "shipping"
@@ -193,6 +196,38 @@ const adminSetStatus = async (req: Request, res: Response) =>{
 }
 
 
+// articles 
+const adminCreateArticle = async (req: Request, res: Response) =>{
+
+    try {
+        const userSession = req.session.user;
+        const {title, content } = req.body
+        const author_id = Number(userSession?.id)
+        await createArticleHandle(title, content, author_id)
+
+        return res.redirect("blogs")
+    } catch (error) {
+        return "Error:" + error.message
+    }
+
+}
+
+const adminDeleteArticle = async (req: Request, res: Response) =>{
+    try {
+        const {Id}= req.body
+        await deleteArticleHandle(Id)
+
+        return res.redirect("blogs")
+    } catch (error) {
+        return "Error:" + error.message
+    }
+}
+
+const adminArticlesPage = async (req: Request, res: Response) => {
+    const listArticles = await getListArticleHanle()
+
+    return res.render(path + "articles", { layout: layout, articles:listArticles})
+}
 
 export {
     adminPage, 
@@ -213,5 +248,8 @@ export {
     adminDeleteProduct,
     adminOrderPage,
     adminOrderDetail,
-    adminSetStatus
+    adminSetStatus,
+    adminCreateArticle,
+    adminArticlesPage,
+    adminDeleteArticle
 }
