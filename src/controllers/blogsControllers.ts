@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createArticleHandle, getListArticleHanle } from "../services/blogsService"
+import { createArticleHandle, getArticleHandle, getListArticleHanle } from "../services/blogsService"
 
 const pages = "pages/blog"
 const layout = "layouts/main"
@@ -23,12 +23,27 @@ const createArticle = (req: Request, res: Response) => {
     } catch (error) {
 
         console.log("Error:", error.message)
-        
+
     }
 
 }
 
+const articlePage = async (req: Request, res: Response) =>{
+    try {
+
+        const {Id} = req.params
+        const article = await getArticleHandle(Number(Id))
+
+        return res.render("pages/article", {layout:layout, article:article})
+    } catch (error) {
+
+        console.log("Error:", error.message)
+
+    }
+}
+
 export {
     getBlogs, 
-    createArticle
+    createArticle,
+    articlePage
 }

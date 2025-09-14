@@ -134,8 +134,7 @@ const getListOrdersHandle = async () =>{
   `
         
         const orders = await db.manyOrNone(query)
-        console.log(orders)
-
+  
         return orders;
     } catch (error:any) {
 

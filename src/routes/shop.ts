@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { productsPage, productPage, cartPage, addProductToCart, removeProductInCart, order } from "../controllers/productsControllers";
+import { productsPage, productPage, cartPage, addProductToCart, removeProductInCart, order, createCommentProduct } from "../controllers/productsControllers";
 
 const shopRouter = Router();
 
@@ -10,6 +10,7 @@ shopRouter.get("/removeProductInCart/:Id", removeProductInCart)
 
 shopRouter.post("/addCart", addProductToCart)
 shopRouter.post("/order", order)
+shopRouter.post("/create_comment_product", createCommentProduct)
 
 
 

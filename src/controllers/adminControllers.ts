@@ -117,6 +117,7 @@ const adminCreateProduct = async (req: Request, res: Response) => {
 }
 const adminProductUpdateForm = async (req: Request, res: Response) =>{
     try {
+
         let {Id} = req.params 
         let product = await getProductHandle(Number(Id)) 
 
@@ -128,6 +129,7 @@ const adminProductUpdateForm = async (req: Request, res: Response) =>{
 
 const adminUpdateProduct = async (req: Request, res: Response) =>{
     try{
+
         const userSession = req.session.user;
         const {Id, name,  price, description} = req.body
         const filename = req.file?.filename;
@@ -151,6 +153,7 @@ const adminGetProductId = async (req: Request, res: Response) => {
 }
 
 const adminDeleteProduct = async (req: Request, res: Response) =>{
+
     let {userId} = req.body
     await deleteProductHandle(userId)
 
@@ -198,8 +201,8 @@ const adminSetStatus = async (req: Request, res: Response) =>{
 
 // articles 
 const adminCreateArticle = async (req: Request, res: Response) =>{
-
     try {
+
         const userSession = req.session.user;
         const {title, content } = req.body
         const author_id = Number(userSession?.id)
@@ -207,6 +210,7 @@ const adminCreateArticle = async (req: Request, res: Response) =>{
 
         return res.redirect("blogs")
     } catch (error) {
+
         return "Error:" + error.message
     }
 
@@ -214,11 +218,13 @@ const adminCreateArticle = async (req: Request, res: Response) =>{
 
 const adminDeleteArticle = async (req: Request, res: Response) =>{
     try {
+
         const {Id}= req.body
         await deleteArticleHandle(Id)
 
         return res.redirect("blogs")
     } catch (error) {
+        
         return "Error:" + error.message
     }
 }

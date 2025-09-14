@@ -11,6 +11,7 @@ import adminRouter from "./routes/admin";
 import { setUserLocals } from "./middlewares/auth";
 
 import path from "path"
+import { delayMiddleware } from "./middlewares/delay";
 
 
 const app = express();
@@ -34,6 +35,7 @@ app.use(
 
 // áp dụng cho tất cả route
 app.use(setUserLocals);
+app.use(delayMiddleware(100))
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true })); 
