@@ -15,12 +15,14 @@ declare module "express-session" {
 }
 
 
+
 const productsPage = async (req: Request, res: Response) => {
 
     const products = await getListProductHanle()
 
     return res.render(path + "shop", { layout: layout, products:products})
 }
+
 
 
 const productPage = async (req: Request, res: Response) => {
@@ -33,6 +35,7 @@ const productPage = async (req: Request, res: Response) => {
     return res.render(path + "product", { layout: layout, product:product, comments:comments, user: req.session.user || null})
 
 }
+
 
 
 const addProductToCart = async (req: Request, res: Response) =>{
@@ -69,6 +72,7 @@ const addProductToCart = async (req: Request, res: Response) =>{
 }
 
 
+
 const cartPage = async (req: Request, res: Response) => {
   try {
     const productsInCart = req.session.cart || [];
@@ -103,6 +107,7 @@ const cartPage = async (req: Request, res: Response) => {
 };
 
 
+
 const removeProductInCart = (req: Request, res: Response)=>{
 
     const { Id } = req.params;
@@ -113,6 +118,7 @@ const removeProductInCart = (req: Request, res: Response)=>{
   return res.redirect("/cart")
 
 }
+
 
 
 const order = async (req: Request, res: Response) =>{
@@ -143,6 +149,8 @@ const order = async (req: Request, res: Response) =>{
     }
   
 }
+
+
 
 const createCommentProduct = async (req: Request, res: Response) => {
   try {

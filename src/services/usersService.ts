@@ -16,6 +16,7 @@ const checkEmail = async (email:string) =>{
 }
 
 
+
 const createUserHandle = async (name: string, email: string, phone: string, username: string, password: string, role: string) =>{
     try {
 
@@ -38,6 +39,8 @@ const createUserHandle = async (name: string, email: string, phone: string, user
     }
 }
 
+
+
 const getUserHandle = async (id: number) =>{
     try {
 
@@ -54,6 +57,8 @@ const getUserHandle = async (id: number) =>{
     }
 
 }
+
+
 
 const updateUserHandle = async (id: number, name:string, email:string, phone:string, username:string, password:string, role:string) => {
   try {
@@ -75,6 +80,8 @@ const updateUserHandle = async (id: number, name:string, email:string, phone:str
   }
 };
 
+
+
 const getListUserHanle = async() =>{
     try {
 
@@ -89,6 +96,8 @@ const getListUserHanle = async() =>{
 
     }
 }
+
+
 
 const deleteUserHandle = async (id: number) =>{
     try {
@@ -110,6 +119,8 @@ const deleteUserHandle = async (id: number) =>{
 
     }
 }
+
+
 
 const loginHandle = async (email:string, password:string) =>{
   try {

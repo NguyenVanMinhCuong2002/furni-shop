@@ -5,7 +5,7 @@ const createArticleHandle = async (title:string, content:string, author_id:numbe
 
       try {
         
-        const query = `INSERT INTO article(title, content, created_by) VALUES('${title}', '${content}', ${author_id} ) RETURNING *`;
+        const query = `INSERT INTO articles(title, content, user_id) VALUES('${title}', '${content}', ${author_id} ) RETURNING *`;
         const article = await db.one(query);
 
         return !!article;
@@ -21,10 +21,12 @@ const createArticleHandle = async (title:string, content:string, author_id:numbe
 
 }
 
+
+
 const deleteArticleHandle = async (Id:string) => {
       try {
 
-      const query = `DELETE FROM article WHERE id = ${Id}`
+      const query = `DELETE FROM articles WHERE id = ${Id}`
       const result = await db.result(query);
 
       if (result.rowCount > 0) {
@@ -42,11 +44,13 @@ const deleteArticleHandle = async (Id:string) => {
     }
 }
 
+
+
 const updateArticleHandle = async (Id: number, title:string, content:string, author_id:number) => {
   try {
 
     const query = `
-      UPDATE article
+      UPDATE articles
       SET title = '${title}', content = '${content}', author_id = '${author_id}'
       WHERE id = '${Id}'
       RETURNING *;
@@ -62,10 +66,12 @@ const updateArticleHandle = async (Id: number, title:string, content:string, aut
   }
 }
 
+
+
 const getArticleHandle = async (id: number) =>{
     try {
 
-        const query = `SELECT * FROM article WHERE id = '${id}'`;
+        const query = `SELECT * FROM articles WHERE id = '${id}'`;
         const article = await db.oneOrNone(query);
 
         return article;
@@ -78,10 +84,12 @@ const getArticleHandle = async (id: number) =>{
 
 }
 
+
+
 const getListArticleHanle = async() =>{
     try {
 
-        const query = `SELECT * FROM article`;
+        const query = `SELECT * FROM articles`;
         const articles = await db.manyOrNone(query);
 
         return articles;
@@ -92,6 +100,8 @@ const getListArticleHanle = async() =>{
 
     }
 }
+
+
 
 export {
     createArticleHandle,

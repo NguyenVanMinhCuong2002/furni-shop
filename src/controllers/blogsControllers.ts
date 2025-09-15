@@ -4,12 +4,14 @@ import { createArticleHandle, getArticleHandle, getListArticleHanle } from "../s
 const pages = "pages/blog"
 const layout = "layouts/main"
 
+
 const getBlogs = async (req: Request, res: Response) => {
 
     const articles = await getListArticleHanle()
 
     return res.render(pages, {layout: layout, articles: articles})
 }
+
 
 
 const createArticle = (req: Request, res: Response) => {
@@ -28,6 +30,8 @@ const createArticle = (req: Request, res: Response) => {
 
 }
 
+
+
 const articlePage = async (req: Request, res: Response) =>{
     try {
 
@@ -41,6 +45,8 @@ const articlePage = async (req: Request, res: Response) =>{
 
     }
 }
+
+
 
 export {
     getBlogs, 

@@ -12,7 +12,7 @@ import { setUserLocals } from "./middlewares/auth";
 
 import path from "path"
 import { delayMiddleware } from "./middlewares/delay";
-
+import { config } from "./config";
 
 const app = express();
 const port = 3000;
@@ -21,13 +21,13 @@ app.use(express.json());
 
 app.use(
   session({
-    secret: "your_secret_key", // nên để trong env
+    secret: config.sessionSecret,
     resave: false,
-    saveUninitialized: false, // nếu false, session sẽ chỉ tạo khi có dữ liệu
+    saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: false, // true nếu dùng HTTPS
-      maxAge: 1000 * 60 * 60, // 1h
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60,
       sameSite: "lax",
     },
   })

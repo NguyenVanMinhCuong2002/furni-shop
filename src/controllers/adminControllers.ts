@@ -9,25 +9,34 @@ const layout = "layouts/admin"
 const layoutLogin = "layouts/main"
 const path = "admin/"
 
+
 // Admin pages
 const adminPage = (req: Request, res: Response) => {
     
     return res.render(path + "dashboard", { layout: layout})
 }
 
+
+
 const adminBlogPage = (req: Request, res: Response) => {
 
     return res.render(path + "articles", { layout: layout})
 }
+
+
 
 const adminLoginForm = (req: Request, res: Response) => {
 
     return res.render(path + "login", { layout: layoutLogin})
 }
 
+
+
 const adminLogin = (req: Request, res: Response) => {
 
 }
+
+
 
 // User  Controllers
 const adminUsersPage = async (req: Request, res: Response) => {
@@ -37,6 +46,8 @@ const adminUsersPage = async (req: Request, res: Response) => {
     return res.render(path + "users", { layout: layout, users: users})
 }
 
+
+
 const adminGetUserId = async (req: Request, res: Response) => {
     
     let {Id} = req.params;
@@ -44,6 +55,8 @@ const adminGetUserId = async (req: Request, res: Response) => {
 
     return users
 }
+
+
 
 const adminUpdateForm = async (req: Request, res: Response) => {
 
@@ -53,12 +66,16 @@ const adminUpdateForm = async (req: Request, res: Response) => {
     return res.render(path + "admin_update_user_form", { layout: layout, user: user})
 }
 
+
+
 const adminDeleteUser = async (req: Request, res: Response) =>{
     let {userId} = req.body
     await deleteUserHandle(userId)
 
     return res.redirect("users");
 }
+
+
 
 const adminCreateUser = async (req: Request, res: Response) => {
     try{
@@ -74,6 +91,8 @@ const adminCreateUser = async (req: Request, res: Response) => {
       return res.status(500).send("Lỗi server");
     }
 }
+
+
 
 const adminUpdateUser = async (req: Request, res: Response) =>{
     try {
@@ -115,6 +134,8 @@ const adminCreateProduct = async (req: Request, res: Response) => {
         return error.message
     }
 }
+
+
 const adminProductUpdateForm = async (req: Request, res: Response) =>{
     try {
 
@@ -126,6 +147,8 @@ const adminProductUpdateForm = async (req: Request, res: Response) =>{
         
     }
 }
+
+
 
 const adminUpdateProduct = async (req: Request, res: Response) =>{
     try{
@@ -144,6 +167,8 @@ const adminUpdateProduct = async (req: Request, res: Response) =>{
     }
 }
 
+
+
 const adminGetProductId = async (req: Request, res: Response) => {
     
     let {Id} = req.params;
@@ -151,6 +176,8 @@ const adminGetProductId = async (req: Request, res: Response) => {
 
     return users
 }
+
+
 
 const adminDeleteProduct = async (req: Request, res: Response) =>{
 
@@ -169,6 +196,8 @@ const adminOrderPage = async (req: Request, res: Response) =>{
     return res.render(path + "order", { layout: layout, orders:listOrders})
 }
 
+
+
 const adminOrderDetail = async (req: Request, res: Response) =>{
 
     const {Id} = req.params;
@@ -176,6 +205,8 @@ const adminOrderDetail = async (req: Request, res: Response) =>{
 
     return res.render(path + "order_details", { layout: layout, products:products})
 }
+
+
 
 const adminSetStatus = async (req: Request, res: Response) =>{
   try {
@@ -216,6 +247,8 @@ const adminCreateArticle = async (req: Request, res: Response) =>{
 
 }
 
+
+
 const adminDeleteArticle = async (req: Request, res: Response) =>{
     try {
 
@@ -229,11 +262,15 @@ const adminDeleteArticle = async (req: Request, res: Response) =>{
     }
 }
 
+
+
 const adminArticlesPage = async (req: Request, res: Response) => {
     const listArticles = await getListArticleHanle()
 
     return res.render(path + "articles", { layout: layout, articles:listArticles})
 }
+
+
 
 export {
     adminPage, 

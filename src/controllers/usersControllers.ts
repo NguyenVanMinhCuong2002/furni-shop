@@ -14,19 +14,26 @@ declare module "express-session" {
 }
 
 
+
 const registerForm = (req: Request, res: Response) => {
     return res.render("pages/register", { layout: "layouts/main"})
 }
 
+
+
 const loginForm = (req: Request, res: Response) => {
     return res.render("pages/login", { layout: "layouts/main"})
 }
+
+
 
 const profileUser = async (req: Request, res: Response) => {
     const {id} = req.params
     const user = await getUserHandle(Number(id))
     return res.render("pages/profile_user", { layout: "layouts/main", user:user})
 }
+
+
 
 const register = async (req: Request, res: Response) => {
     try{
@@ -49,6 +56,7 @@ const register = async (req: Request, res: Response) => {
 
     }
 }
+
 
 
 const login = async (req: Request, res: Response) => {
@@ -74,9 +82,12 @@ const login = async (req: Request, res: Response) => {
 
 
   } catch (err: any) {
+
     res.status(401).json({ error: err.message });
+
   }
 };
+
 
 const logout = async (req: Request, res: Response) =>{
   req.session.destroy((err) => {
@@ -89,6 +100,7 @@ const logout = async (req: Request, res: Response) =>{
       res.redirect("home")
   })
 }
+
 
 const updateUser = async (req: Request, res: Response) =>{
     try {

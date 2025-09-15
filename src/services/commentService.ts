@@ -5,7 +5,7 @@ import db from "../database/connection"
 const createCommentProductHandle = async (user_Id: Number, content:String, product_Id: Number) =>{
     try {
 
-        const query = `INSERT INTO commentproduct(user_id, content, product_id) VALUES('${user_Id}', '${content}', ${product_Id} ) RETURNING *`;
+        const query = `INSERT INTO product_comments(user_id, content, product_id) VALUES('${user_Id}', '${content}', ${product_Id} ) RETURNING *`;
         const article = await db.one(query);
 
         return !!article;
@@ -18,6 +18,8 @@ const createCommentProductHandle = async (user_Id: Number, content:String, produ
 
 }
 
+
+
 const getListCommentByIdProductHandle = async (product_Id:Number) =>{
      try {
 
@@ -27,7 +29,7 @@ const getListCommentByIdProductHandle = async (product_Id:Number) =>{
             cp.product_id,
             cp.content,
             u.name AS username
-        FROM commentproduct cp
+        FROM product_comments cp
         JOIN users u ON cp.user_id = u.id
         WHERE cp.product_id = $1
         `;
@@ -43,6 +45,8 @@ const getListCommentByIdProductHandle = async (product_Id:Number) =>{
 
     }
 } 
+
+
 
 
 export {

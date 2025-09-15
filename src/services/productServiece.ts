@@ -15,6 +15,8 @@ const getListProductHanle = async() =>{
     }
 }
 
+
+
 const createProductHandle = async(name:string, description:string, price:number, created_by:number, img_link:string) =>{
 
     try {
@@ -28,6 +30,8 @@ const createProductHandle = async(name:string, description:string, price:number,
     }
 
 }
+
+
 
 const updateProductHandle = async (id:number, name:string, description:string, price:number, created_by:number, img_link:string) => {
     try {
@@ -47,6 +51,8 @@ const updateProductHandle = async (id:number, name:string, description:string, p
     }
 }
 
+
+
 const getProductHandle = async (id:number) =>{
     try {
 
@@ -62,6 +68,8 @@ const getProductHandle = async (id:number) =>{
 
     }
 }
+
+
 
 const deleteProductHandle = async (id:number) =>{
     try{
@@ -84,6 +92,7 @@ const deleteProductHandle = async (id:number) =>{
 }
 
 
+
 const orderProductHandle = async(userId: number, address:string ,status:string, cart: { productId: number, quantity: number }[]) =>{
     if (!cart || cart.length === 0) {
         throw new Error("Giỏ hàng trống");
@@ -98,7 +107,7 @@ const orderProductHandle = async(userId: number, address:string ,status:string, 
     // 2. Lưu chi tiết đơn hàng
     for (const item of cart) {
         await db.none(
-        "INSERT INTO orderdetail(order_id, product_id, quantity) VALUES($1, $2, $3)",
+        "INSERT INTO order_details(order_id, product_id, quantity) VALUES($1, $2, $3)",
         [order.id, item.productId, item.quantity]
         )
     }
@@ -106,17 +115,21 @@ const orderProductHandle = async(userId: number, address:string ,status:string, 
     return order.id;
 }
 
+
+
 const getProductByOrderIdHandle = async(orderId: Number) =>{
 
     const query = `SELECT p.*, od.quantity
      FROM products p
-     JOIN orderdetail od ON p.id = od.product_id
+     JOIN order_details od ON p.id = od.product_id
      WHERE od.order_id = ${orderId}`
 
     const products = await db.any(query)
 
     return products
 }
+
+
 
 const getListOrdersHandle = async () =>{
     try {
