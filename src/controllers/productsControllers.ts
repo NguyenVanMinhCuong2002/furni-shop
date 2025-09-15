@@ -170,6 +170,8 @@ const createCommentProduct = async (req: Request, res: Response) => {
 
 }
 
+
+
 const listCommentProduct = async (req: Request, res: Response) =>{
   try {
 
@@ -185,6 +187,12 @@ const listCommentProduct = async (req: Request, res: Response) =>{
 }
 
 
+
+const successOrder = async (req: Request, res: Response) =>{
+    return res.render(path + "success", {layout:layout})
+}
+
+
 export {
     productsPage, 
     productPage,
@@ -193,6 +201,7 @@ export {
     removeProductInCart,
     order,
     createCommentProduct,
-    listCommentProduct
+    listCommentProduct,
+    successOrder
 }
 
