@@ -1,5 +1,5 @@
 # Furni shop 
-![alt text](image.png)
+![alt text](assets/image.png)
 
 - Furniture website
 - Vulnerability lab
