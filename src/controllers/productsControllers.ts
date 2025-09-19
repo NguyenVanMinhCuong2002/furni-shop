@@ -138,10 +138,7 @@ const order = async (req: Request, res: Response) =>{
       // Xóa giỏ hàng sau khi đặt
       req.session.cart = [];
 
-      return res.json({
-        message: "Đặt hàng thành công",
-        orderId,
-      });
+      return res.redirect("/order_success")
     } catch (err: any) {
 
       console.error("Lỗi khi đặt hàng:", err);
