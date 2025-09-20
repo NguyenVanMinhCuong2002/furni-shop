@@ -18,11 +18,10 @@ DATABASE_NAME=mydb
 SESSION_SECRET_KEY=47cddd6a-c2ef-4775-981b-1ba10c5cd2e4
 </pre>
 
-### Build
+### running
 
 <pre>
-$ npm run build 
-$ npm start
+$ npm run dev
 </pre>
 
 ### Run docker 
