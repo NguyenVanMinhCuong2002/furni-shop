@@ -10,11 +10,11 @@
 ## Docker
 ### Create .env file (For example)
 <pre>
-DATABASE_HOST=db
+DATABASE_HOST=db \\ localhost if you run without docker
 DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
-DATABASE_NAME=mydb
+DATABASE_NAME=chairshop
 SESSION_SECRET_KEY=47cddd6a-c2ef-4775-981b-1ba10c5cd2e4
 </pre>
 
