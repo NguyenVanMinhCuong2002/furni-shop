@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { createUserHandle, getUserHandle, loginHandle, updateUserHandle } from "../services/usersService";
+import session from "express-session";
 
 
 // mở rộng SessionData
@@ -28,7 +29,8 @@ const loginForm = (req: Request, res: Response) => {
 
 
 const profileUser = async (req: Request, res: Response) => {
-    const {id} = req.params
+    const sessionUser = req.session.user
+    const id = sessionUser?.id
     const user = await getUserHandle(Number(id))
     return res.render("pages/profile_user", { layout: "layouts/main", user:user})
 }

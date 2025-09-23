@@ -6,7 +6,7 @@ const accountRouter = Router();
 
 accountRouter.get("/register", registerForm);
 accountRouter.get("/login", loginForm);
-accountRouter.get("/profile/:id", profileUser)
+accountRouter.get("/profile", profileUser)
 accountRouter.get("/forgot_passowrd", forgotPassword)
 
 accountRouter.post("/register", register);

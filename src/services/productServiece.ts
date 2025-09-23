@@ -20,8 +20,8 @@ const getListProductHanle = async() =>{
 const createProductHandle = async(name:string, description:string, price:number, created_by:number, img_link:string) =>{
 
     try {
-        const query = `INSERT INTO products(name, description, price, created_by, img_link) VALUES('${name}', '${description}', '${price}', '${created_by}', '${img_link}' ) RETURNING *`;
-        const product = await db.one(query);
+        const query = `INSERT INTO products(name, description, price, created_by, img_link) VALUES($1, $2, $3, $4, $5 ) RETURNING *`;
+        const product = await db.one(query,[name, description, price, created_by, img_link]);
 
         return !!product;
 
@@ -38,11 +38,11 @@ const updateProductHandle = async (id:number, name:string, description:string, p
         
         const query = `
         UPDATE products
-        SET name = '${name}', description = '${description}', price = '${price}', created_by = '${created_by}', img_link = '${img_link}' 
-        WHERE id = '${id}'
+        SET name = $1, description = $2, price = $3, created_by = $4, img_link = $5 
+        WHERE id = $6
         RETURNING *;
         `;
-        const updatedUser = await db.oneOrNone(query);
+        const updatedUser = await db.oneOrNone(query, [name, description, price, created_by, img_link, id]);
 
     return updatedUser; // sẽ trả về user sau khi update, hoặc null nếu không tìm thấy
 
@@ -57,8 +57,8 @@ const getProductHandle = async (id:number) =>{
     try {
 
         // console.log(id)
-        const query = `SELECT * FROM products WHERE id = '${id}'`;
-        const product = await db.oneOrNone(query);
+        const query = `SELECT * FROM products WHERE id = $1`;
+        const product = await db.oneOrNone(query,[id]);
 
         return product;
 
@@ -73,8 +73,8 @@ const getProductHandle = async (id:number) =>{
 
 const deleteProductHandle = async (id:number) =>{
     try{
-      const query = `DELETE FROM products WHERE id = ${id}`
-      const result = await db.result(query);
+      const query = `DELETE FROM products WHERE id = $1`
+      const result = await db.result(query, [id]);
 
       if (result.rowCount > 0) {
 
@@ -122,9 +122,9 @@ const getProductByOrderIdHandle = async(orderId: Number) =>{
     const query = `SELECT p.*, od.quantity
      FROM products p
      JOIN order_details od ON p.id = od.product_id
-     WHERE od.order_id = ${orderId}`
+     WHERE od.order_id = $1`
 
-    const products = await db.any(query)
+    const products = await db.any(query, orderId)
 
     return products
 }
@@ -159,11 +159,11 @@ const getListOrdersHandle = async () =>{
 
 const setOrderStatusHandle = async (orderId: number, newStatus: string) => {
     const query =    `UPDATE orders
-                        SET status = '${newStatus}'
-                        WHERE id = ${orderId}
+                        SET status = $1
+                        WHERE id = $2
                         RETURNING *`
 
-    const order = await db.oneOrNone(query)
+    const order = await db.oneOrNone(query, [newStatus, orderId])
                         
     return order
 }

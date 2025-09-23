@@ -5,8 +5,8 @@ const createArticleHandle = async (title:string, content:string, author_id:numbe
 
       try {
         
-        const query = `INSERT INTO articles(title, content, user_id) VALUES('${title}', '${content}', ${author_id} ) RETURNING *`;
-        const article = await db.one(query);
+        const query = `INSERT INTO articles(title, content, user_id) VALUES($1, $2, $3 ) RETURNING *`;
+        const article = await db.one(query, [title, content, author_id]);
 
         return !!article;
 
@@ -26,8 +26,8 @@ const createArticleHandle = async (title:string, content:string, author_id:numbe
 const deleteArticleHandle = async (Id:string) => {
       try {
 
-      const query = `DELETE FROM articles WHERE id = ${Id}`
-      const result = await db.result(query);
+      const query = `DELETE FROM articles WHERE id = $1`
+      const result = await db.result(query, [Id]);
 
       if (result.rowCount > 0) {
 
@@ -51,11 +51,11 @@ const updateArticleHandle = async (Id: number, title:string, content:string, aut
 
     const query = `
       UPDATE articles
-      SET title = '${title}', content = '${content}', author_id = '${author_id}'
-      WHERE id = '${Id}'
+      SET title = $1, content = $2, author_id = $3
+      WHERE id = $4
       RETURNING *;
     `;
-    const updatedArticle = await db.oneOrNone(query);
+    const updatedArticle = await db.oneOrNone(query, [content, author_id, Id]);
 
     return updatedArticle; // sẽ trả về user sau khi update, hoặc null nếu không tìm thấy
 
@@ -71,8 +71,8 @@ const updateArticleHandle = async (Id: number, title:string, content:string, aut
 const getArticleHandle = async (id: number) =>{
     try {
 
-        const query = `SELECT * FROM articles WHERE id = '${id}'`;
-        const article = await db.oneOrNone(query);
+        const query = `SELECT * FROM articles WHERE id = $1`;
+        const article = await db.oneOrNone(query, [id]);
 
         return article;
 

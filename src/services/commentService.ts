@@ -5,8 +5,8 @@ import db from "../database/connection"
 const createCommentProductHandle = async (user_Id: Number, content:String, product_Id: Number) =>{
     try {
 
-        const query = `INSERT INTO product_comments(user_id, content, product_id) VALUES('${user_Id}', '${content}', ${product_Id} ) RETURNING *`;
-        const article = await db.one(query);
+        const query = `INSERT INTO product_comments(user_id, content, product_id) VALUES($1, $2, $3 ) RETURNING *`;
+        const article = await db.one(query, [user_Id, content, product_Id]);
 
         return !!article;
 
