@@ -1,4 +1,7 @@
-# Patch 
+# Patch 1.0
+## Introduction
+In this security patch, I only patched the vulnerabilities that were intentionally simulated, so there may still be other vulnerabilities that have not been discovered yet.
+
 ## The vulnerability was patched
 - XSS 
 - SQLi 
