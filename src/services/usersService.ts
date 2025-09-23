@@ -1,4 +1,7 @@
 import db from "../database/connection";
+import { hashSync, compare } from "bcrypt-ts";
+
+const salt = 8
 
 
 const checkEmail = async (email:string) =>{
@@ -22,9 +25,10 @@ const createUserHandle = async (name: string, email: string, phone: string, user
     try {
 
         const email_status = await checkEmail(email)
+        const hashed_password = await hashSync(password, salt)
         if(email_status != true){
             const query = `INSERT INTO users(name, email, phone, username, password, role) VALUES($1, $2, $3, $4, $5, $6 ) RETURNING *`;
-            const user = await db.one(query,[name, email, phone, username, password, role]);
+            const user = await db.one(query,[name, email, phone, username, hashed_password, role]);
 
             return !!user;
 
@@ -35,7 +39,7 @@ const createUserHandle = async (name: string, email: string, phone: string, user
         }
     } catch (error: any) {
 
-        return "Email hoặc Username đã tồn tại trong hệ thống."
+        return error
 
     }
 }
@@ -63,14 +67,14 @@ const getUserHandle = async (id: number) =>{
 
 const updateUserHandle = async (id: number, name:string, email:string, phone:string, username:string, password:string, role:string) => {
   try {
-
+    const hashed_password = await hashSync(password, salt)
     const query = `
       UPDATE users
       SET name = $1, email = $2, password = $3, phone = $4, username = $5, role = $6
       WHERE id = $7
       RETURNING *;
     `;
-    const updatedUser = await db.oneOrNone(query, [name, email, password, phone, username, role, id]);
+    const updatedUser = await db.oneOrNone(query, [name, email, hashed_password, phone, username, role, id]);
 
     return updatedUser; // sẽ trả về user sau khi update, hoặc null nếu không tìm thấy
 
@@ -128,8 +132,10 @@ const loginHandle = async (email:string, password:string) =>{
 
     const query = `SELECT * FROM users WHERE email = $1`
     const user = await db.oneOrNone(query, [email])
-    
-    if(user.password == password){
+
+
+    const compare_result = await compare(password, user.password)
+    if(compare_result){
 
       return user
 
