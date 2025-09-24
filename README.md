@@ -6,6 +6,7 @@
 - White Box 
 - Vulnerability is reproduced (SQli, XSS, IDOR, Cryptographic Failures)
 
+
 # Setup
 ## Docker
 ### Create .env file (For example)
