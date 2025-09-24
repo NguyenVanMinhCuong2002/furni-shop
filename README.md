@@ -34,7 +34,7 @@ $ sh run.sh
 
 ![alt text](<assets/workflow.drawio.png>)
 
-Notes
+# Notes
 - Security Docs: https://github.com/NguyenVanMinhCuong2002/Web-profille/tree/master/security_reports
 - Patch: https://github.com/NguyenVanMinhCuong2002/furni-shop/tree/patch-1.0
 - Video Pentest: https://github.com/NguyenVanMinhCuong2002/furni-shop/blob/first-version/security_reports/pentesting/pentesting_video.mp4
