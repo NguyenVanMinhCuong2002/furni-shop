@@ -25,6 +25,7 @@ We can change logic to get id from session
 
 # Password Hashing
 
+These are user related functions, their common point is that they do not encrypt passwords, so we need to add password encryption function to them.
 Register
 ![alt text](assets/image-5.png)
 
@@ -34,4 +35,3 @@ update user
 login 
 ![alt text](assets/image-7.png)
 
-These are user related functions, their common point is that they do not encrypt passwords, so we need to add password encryption function to them.
